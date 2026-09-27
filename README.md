@@ -1,2 +1,2 @@
 # aiTesters_course
-for course
+This repository will be used for my course.
