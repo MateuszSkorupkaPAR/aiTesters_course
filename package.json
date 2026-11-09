@@ -1,0 +1,25 @@
+{
+  "name": "aitesters_course",
+  "version": "1.0.0",
+  "description": "This repository will be used for my course.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateuszSkorupkaPAR/aiTesters_course.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MateuszSkorupkaPAR/aiTesters_course/issues"
+  },
+  "homepage": "https://github.com/MateuszSkorupkaPAR/aiTesters_course#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6"
+  }
+}
