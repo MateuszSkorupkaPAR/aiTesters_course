@@ -1,0 +1,54 @@
+import { expect, test } from "@playwright/test";
+
+test("has title", { tag: ["@smoke"] }, async ({ page }) => {
+  await page.goto("/");
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle(/Rolnopol/);
+});
+
+test("login link", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
+  await page.goto("/");
+
+  // Click the login link.
+  await page.getByRole("link", { name: "Login" }).click();
+
+  // Expects page to navigate to the login page.
+  await expect(page).toHaveURL(/login\.html/);
+  await expect(page).toHaveTitle(/Login - Rolnopol/);
+});
+
+test.describe("Login page", () => {
+  test("loads and displays the login form", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
+    await page.goto("/login.html");
+
+    // Page loaded with correct title.
+    await expect(page).toHaveTitle(/Login - Rolnopol/);
+
+    // Core elements are visible.
+    await expect(page.getByTestId("login-container")).toBeVisible();
+    await expect(page.getByTestId("login-form")).toBeVisible();
+    await expect(page.getByTestId("email-input")).toBeVisible();
+    await expect(page.getByTestId("password-input")).toBeVisible();
+    await expect(page.getByTestId("login-submit-btn")).toBeVisible();
+    await expect(page.getByTestId("register-link")).toBeVisible();
+  });
+});
+
+test.describe("Register page", () => {
+  test("loads and displays the registration form", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
+    await page.goto("/register.html");
+
+    // Page loaded with correct title.
+    await expect(page).toHaveTitle(/Register - Rolnopol/);
+
+    // Core elements are visible.
+    await expect(page.getByTestId("register-container")).toBeVisible();
+    await expect(page.getByTestId("register-form")).toBeVisible();
+    await expect(page.getByTestId("email-input")).toBeVisible();
+    await expect(page.getByTestId("display-name-input")).toBeVisible();
+    await expect(page.getByTestId("password-input")).toBeVisible();
+    await expect(page.getByTestId("register-submit-btn")).toBeVisible();
+    await expect(page.getByTestId("login-link")).toBeVisible();
+  });
+});
