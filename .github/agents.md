@@ -1,4 +1,4 @@
-# Commit Messages
+# Commit Messages
 
 Use [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<optional scope>): <description>`
 
