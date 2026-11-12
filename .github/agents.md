@@ -1,3 +1,10 @@
+# Testing Framework
+
+This project uses the [Playwright Test](https://playwright.dev/docs/intro) framework for
+end-to-end tests. Review [playwright.config.ts](/playwright.config.ts) before creating or
+modifying tests to stay consistent with the configured `testDir`, timeout, reporter,
+`use` options (e.g. `baseURL`, `trace`), and `projects`.
+
 # Commit Messages
 
 Use [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<optional scope>): <description>`
