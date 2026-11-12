@@ -32,13 +32,45 @@ client-side logic.
 ## Key Scenarios
 
 1. Register → login → set up farm (add field, animals, staff, assignments).
+   `@smoke @auth @farm-management`
 2. Sell a field: User A creates offer → User B buys it → ownership/balance update, offer
    marked `sold`.
+   `@smoke @marketplace @finance`
 3. Attempt to sell an assigned/in-use asset → offer is `unavailable`.
+   `@marketplace @business-rules`
 4. Attempt to buy with insufficient funds → blocked with error.
+   `@marketplace @finance @business-rules`
 5. Farmer tries to access admin-only data/pages → denied.
+   `@rbac`
 6. Each feature-flagged module: check behavior both enabled and disabled (e.g. Alerts page
    hidden/404 when `alertsEnabled` is off; Contact form hidden/404 when off).
+   `@feature-flags`
+
+### Tag Legend
+
+| Tag                | Meaning                                                    |
+|---------------------|-------------------------------------------------------------|
+| `@smoke`            | Critical-path case; run on every quick/smoke pass.          |
+| `@auth`             | Registration, login, session, logout, rate limiting.        |
+| `@farm-management`  | Fields, animals, staff, assignments CRUD.                   |
+| `@marketplace`      | Offer creation, browsing, buying, cancelling.                |
+| `@finance`          | Balance, transactions, transfers.                            |
+| `@business-rules`   | Domain rule enforcement (ownership, no-overdraft, etc.).     |
+| `@rbac`             | Role-based access control (User vs Admin vs Superadmin).     |
+| `@feature-flags`    | Behavior toggled by feature flags (Alerts, Contact Form,    |
+|                     | Interactive Map, Survival game).                             |
+| `@api`              | API-level checks (auth required, Swagger/OpenAPI).           |
+
+Apply these as Playwright tags on each spec, e.g.:
+
+```ts
+test('sell a field updates ownership and balance', { tag: ['@smoke', '@marketplace', '@finance'] }, async ({ page }) => {
+  // ...
+});
+```
+
+Run a subset with `npx playwright test --grep @smoke` (or combine, e.g.
+`--grep "@marketplace.*@business-rules"`).
 
 ## Test Data
 
