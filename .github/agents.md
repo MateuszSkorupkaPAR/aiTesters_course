@@ -16,3 +16,16 @@ feat(tests): add login validation scenarios
 fix(playwright): correct base URL in config
 chore: update VSCode settings
 ```
+
+# Test Tags
+
+Every Playwright test must declare at least one tag from the Tag Legend in
+[TEST_PLAN.md](/TEST_PLAN.md), passed via the test's `tag` option, e.g.
+`test('...', { tag: ['@smoke', '@auth'] }, async ({ page }) => { ... })`.
+
+- Reuse existing tags from the Tag Legend whenever a scenario fits one.
+- If a test needs a tag that doesn't exist yet, add it to the Tag Legend table in
+  [TEST_PLAN.md](/TEST_PLAN.md) in the same change, with a short description.
+- When adding/renaming/removing tags or key scenarios, keep [TEST_PLAN.md](/TEST_PLAN.md)
+  (Tag Legend and Key Scenarios sections) in sync with the actual tests under
+  [tests/](/tests).
