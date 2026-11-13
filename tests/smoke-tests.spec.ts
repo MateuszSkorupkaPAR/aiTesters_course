@@ -19,36 +19,44 @@ test("login link", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
 });
 
 test.describe("Login page", () => {
-  test("loads and displays the login form", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
-    await page.goto("/login.html");
+  test(
+    "loads and displays the login form",
+    { tag: ["@smoke", "@auth"] },
+    async ({ page }) => {
+      await page.goto("/login.html");
 
-    // Page loaded with correct title.
-    await expect(page).toHaveTitle(/Login - Rolnopol/);
+      // Page loaded with correct title.
+      await expect(page).toHaveTitle(/Login - Rolnopol/);
 
-    // Core elements are visible.
-    await expect(page.getByTestId("login-container")).toBeVisible();
-    await expect(page.getByTestId("login-form")).toBeVisible();
-    await expect(page.getByTestId("email-input")).toBeVisible();
-    await expect(page.getByTestId("password-input")).toBeVisible();
-    await expect(page.getByTestId("login-submit-btn")).toBeVisible();
-    await expect(page.getByTestId("register-link")).toBeVisible();
-  });
+      // Core elements are visible.
+      await expect(page.getByTestId("login-container")).toBeVisible();
+      await expect(page.getByTestId("login-form")).toBeVisible();
+      await expect(page.getByTestId("email-input")).toBeVisible();
+      await expect(page.getByTestId("password-input")).toBeVisible();
+      await expect(page.getByTestId("login-submit-btn")).toBeVisible();
+      await expect(page.getByTestId("register-link")).toBeVisible();
+    },
+  );
 });
 
 test.describe("Register page", () => {
-  test("loads and displays the registration form", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
-    await page.goto("/register.html");
+  test(
+    "loads and displays the registration form",
+    { tag: ["@smoke", "@auth"] },
+    async ({ page }) => {
+      await page.goto("/register.html");
 
-    // Page loaded with correct title.
-    await expect(page).toHaveTitle(/Register - Rolnopol/);
+      // Page loaded with correct title.
+      await expect(page).toHaveTitle(/Register - Rolnopol/);
 
-    // Core elements are visible.
-    await expect(page.getByTestId("register-container")).toBeVisible();
-    await expect(page.getByTestId("register-form")).toBeVisible();
-    await expect(page.getByTestId("email-input")).toBeVisible();
-    await expect(page.getByTestId("display-name-input")).toBeVisible();
-    await expect(page.getByTestId("password-input")).toBeVisible();
-    await expect(page.getByTestId("register-submit-btn")).toBeVisible();
-    await expect(page.getByTestId("login-link")).toBeVisible();
-  });
+      // Core elements are visible.
+      await expect(page.getByTestId("register-container")).toBeVisible();
+      await expect(page.getByTestId("register-form")).toBeVisible();
+      await expect(page.getByTestId("email-input")).toBeVisible();
+      await expect(page.getByTestId("display-name-input")).toBeVisible();
+      await expect(page.getByTestId("password-input")).toBeVisible();
+      await expect(page.getByTestId("register-submit-btn")).toBeVisible();
+      await expect(page.getByTestId("login-link")).toBeVisible();
+    },
+  );
 });
