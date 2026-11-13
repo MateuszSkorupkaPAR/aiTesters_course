@@ -39,6 +39,27 @@ test.describe("Login page", () => {
   );
 });
 
+test.describe("Login page subtitle", () => {
+  test(
+    "loads and displays the login subtitle",
+    { tag: ["@smoke", "@auth"] },
+    async ({ page }) => {
+      const expectedSubtitle = "User Login & Account Access";
+
+      await page.goto("/login.html");
+
+      // Page loaded with correct title.
+      await expect(page).toHaveTitle(/Login - Rolnopol/);
+
+      // Subtitle element is visible with the expected text.
+      await expect(page.getByTestId("login-subtitle")).toBeVisible();
+      await expect(page.getByTestId("login-subtitle")).toHaveText(
+        expectedSubtitle,
+      );
+    },
+  );
+});
+
 test.describe("Register page", () => {
   test(
     "loads and displays the registration form",
@@ -57,6 +78,27 @@ test.describe("Register page", () => {
       await expect(page.getByTestId("password-input")).toBeVisible();
       await expect(page.getByTestId("register-submit-btn")).toBeVisible();
       await expect(page.getByTestId("login-link")).toBeVisible();
+    },
+  );
+});
+
+test.describe("Register page subtitle", () => {
+  test(
+    "loads and displays the registration subtitle",
+    { tag: ["@smoke", "@auth"] },
+    async ({ page }) => {
+      const expectedSubtitle = "Create Your User Account";
+
+      await page.goto("/register.html");
+
+      // Page loaded with correct title.
+      await expect(page).toHaveTitle(/Register - Rolnopol/);
+
+      // Subtitle element is visible with the expected text.
+      await expect(page.getByTestId("register-subtitle")).toBeVisible();
+      await expect(page.getByTestId("register-subtitle")).toHaveText(
+        expectedSubtitle,
+      );
     },
   );
 });
