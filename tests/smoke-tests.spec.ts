@@ -102,3 +102,40 @@ test.describe("Register page subtitle", () => {
     },
   );
 });
+
+test.describe("Documentation page", () => {
+  test(
+    "loads and displays the documentation content",
+    { tag: ["@smoke"] },
+    async ({ page }) => {
+      await page.goto("/docs.html");
+
+      // Page loaded with correct title.
+      await expect(page).toHaveTitle(/Documentation - Rolnopol/);
+
+      // Core elements are visible.
+      await expect(page.getByTestId("docs-container")).toBeVisible();
+      await expect(page.getByTestId("docs-header")).toBeVisible();
+      await expect(page.getByTestId("docs-sidebar")).toBeVisible();
+      await expect(page.getByTestId("docs-nav")).toBeVisible();
+      await expect(page.getByTestId("docs-content")).toBeVisible();
+    },
+  );
+});
+
+test.describe("Swagger page", () => {
+  test(
+    "loads and displays the API documentation frame",
+    { tag: ["@smoke"] },
+    async ({ page }) => {
+      await page.goto("/swagger.html");
+
+      // Page loaded with correct title.
+      await expect(page).toHaveTitle(/Rolnopol - Swagger/);
+
+      // The embedded Swagger UI frame is visible.
+      // No data-testid is exposed for this page, so the frame id is used instead.
+      await expect(page.locator("#swagger-frame")).toBeVisible();
+    },
+  );
+});
