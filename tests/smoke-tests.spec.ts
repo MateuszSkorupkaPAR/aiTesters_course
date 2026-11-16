@@ -103,6 +103,31 @@ test.describe("Register page subtitle", () => {
   );
 });
 
+test.describe("Registration", () => {
+  test(
+    "registers a new user successfully",
+    { tag: ["@smoke", "@auth"] },
+    async ({ page }) => {
+      // The post-registration redirect can take a while, so extend the test timeout.
+      //test.setTimeout(35 * 1000);
+
+      // Unique email avoids clashing with previously registered accounts.
+      const uniqueEmail = `copilot.test.${Date.now()}@example.com`;
+
+      await page.goto("/register.html");
+
+      await page.getByTestId("email-input").fill(uniqueEmail);
+      await page.getByTestId("display-name-input").fill("Copilot Tester");
+      await page.getByTestId("password-input").fill("TestPass123");
+      await page.getByTestId("register-submit-btn").click();
+
+      // A successful registration redirects the user to the login page.
+      await expect(page).toHaveURL(/login\.html/, { timeout: 30 * 1000 });
+      await expect(page).toHaveTitle(/Login - Rolnopol/);
+    },
+  );
+});
+
 test.describe("Documentation page", () => {
   test(
     "loads and displays the documentation content",
