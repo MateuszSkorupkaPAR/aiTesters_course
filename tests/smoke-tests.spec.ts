@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { RegisterPage } from "../pages/register-page";
 
 test("has title", { tag: ["@smoke"] }, async ({ page }) => {
   // Act
@@ -75,21 +76,24 @@ test.describe("Register page", () => {
     "loads and displays the registration form",
     { tag: ["@smoke", "@auth"] },
     async ({ page }) => {
+      // Arrange
+      const registerPage = new RegisterPage(page);
+
       // Act
-      await page.goto("/register.html");
+      await registerPage.goto();
 
       // Assert
       // Page loaded with correct title.
       await expect(page).toHaveTitle(/Register - Rolnopol/);
 
       // Core elements are visible.
-      await expect(page.getByTestId("register-container")).toBeVisible();
-      await expect(page.getByTestId("register-form")).toBeVisible();
-      await expect(page.getByTestId("email-input")).toBeVisible();
-      await expect(page.getByTestId("display-name-input")).toBeVisible();
-      await expect(page.getByTestId("password-input")).toBeVisible();
-      await expect(page.getByTestId("register-submit-btn")).toBeVisible();
-      await expect(page.getByTestId("login-link")).toBeVisible();
+      await expect(registerPage.container).toBeVisible();
+      await expect(registerPage.form).toBeVisible();
+      await expect(registerPage.emailInput).toBeVisible();
+      await expect(registerPage.displayNameInput).toBeVisible();
+      await expect(registerPage.passwordInput).toBeVisible();
+      await expect(registerPage.submitButton).toBeVisible();
+      await expect(registerPage.loginLink).toBeVisible();
     },
   );
 });
@@ -101,19 +105,18 @@ test.describe("Register page subtitle", () => {
     async ({ page }) => {
       // Arrange
       const expectedSubtitle = "Create Your User Account";
+      const registerPage = new RegisterPage(page);
 
       // Act
-      await page.goto("/register.html");
+      await registerPage.goto();
 
       // Assert
       // Page loaded with correct title.
       await expect(page).toHaveTitle(/Register - Rolnopol/);
 
       // Subtitle element is visible with the expected text.
-      await expect(page.getByTestId("register-subtitle")).toBeVisible();
-      await expect(page.getByTestId("register-subtitle")).toHaveText(
-        expectedSubtitle,
-      );
+      await expect(registerPage.subtitle).toBeVisible();
+      await expect(registerPage.subtitle).toHaveText(expectedSubtitle);
     },
   );
 });
@@ -129,20 +132,18 @@ test.describe("Registration", () => {
       // Arrange
       // Unique email avoids clashing with previously registered accounts.
       const uniqueEmail = `copilot.test.${Date.now()}@example.com`;
-      await page.goto("/register.html");
-      await page.getByTestId("email-input").fill(uniqueEmail);
-      await page.getByTestId("display-name-input").fill("Copilot Tester");
-      await page.getByTestId("password-input").fill("TestPass123");
+      const registerPage = new RegisterPage(page);
+      await registerPage.goto();
 
       // Act
-      await page.getByTestId("register-submit-btn").click();
+      await registerPage.register(uniqueEmail, "Copilot Tester", "TestPass123");
 
       // Assert
       // A success notification banner confirms the registration succeeded.
-      // No data-testid is exposed for this toast, so its CSS classes are used instead.
-      const successBanner = page.locator(".notification.success");
-      await expect(successBanner).toBeVisible();
-      await expect(successBanner).toContainText("Registration successful!");
+      await expect(registerPage.successBanner).toBeVisible();
+      await expect(registerPage.successBanner).toContainText(
+        "Registration successful!",
+      );
 
       // A successful registration redirects the user to the login page.
       await expect(page).toHaveURL(/login\.html/, { timeout: 30 * 1000 });
