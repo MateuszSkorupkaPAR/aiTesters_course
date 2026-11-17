@@ -33,9 +33,11 @@ export class RegisterPage {
     await this.page.goto("/register.html");
   }
 
-  async fillRegistrationForm(email: string, displayName: string, password: string) {
+  async fillRegistrationForm(email: string, password: string, displayName?: string) {
     await this.emailInput.fill(email);
-    await this.displayNameInput.fill(displayName);
+    if (displayName !== undefined) {
+      await this.displayNameInput.fill(displayName);
+    }
     await this.passwordInput.fill(password);
   }
 
@@ -43,8 +45,8 @@ export class RegisterPage {
     await this.submitButton.click();
   }
 
-  async register(email: string, displayName: string, password: string) {
-    await this.fillRegistrationForm(email, displayName, password);
+  async register(email: string, password: string, displayName?: string) {
+    await this.fillRegistrationForm(email, password, displayName);
     await this.submit();
   }
 }

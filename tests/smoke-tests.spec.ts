@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { RegisterPage } from "../pages/register-page";
+import { uniqueEmail } from "../src/helpers/unique-email";
+import { RegisterPage } from "../src/pages/register-page";
 
 test("has title", { tag: ["@smoke"] }, async ({ page }) => {
   // Act
@@ -131,12 +132,12 @@ test.describe("Registration", () => {
 
       // Arrange
       // Unique email avoids clashing with previously registered accounts.
-      const uniqueEmail = `copilot.test.${Date.now()}@example.com`;
+      const email = uniqueEmail();
       const registerPage = new RegisterPage(page);
       await registerPage.goto();
 
       // Act
-      await registerPage.register(uniqueEmail, "Copilot Tester", "TestPass123");
+      await registerPage.register(email, "TestPass123", "Copilot Tester");
 
       // Assert
       // A success notification banner confirms the registration succeeded.
