@@ -5,6 +5,19 @@ end-to-end tests. Review [playwright.config.ts](/playwright.config.ts) before cr
 modifying tests to stay consistent with the configured `testDir`, timeout, reporter,
 `use` options (e.g. `baseURL`, `trace`), and `projects`.
 
+# Test Structure
+
+Structure every test body using the Arrange-Act-Assert pattern:
+
+- **Arrange**: set up test data and preconditions (e.g. fixtures, variables, `test.setTimeout`,
+  navigation needed only to reach the starting state).
+- **Act**: perform the single action under test (e.g. `page.goto`, a click, a form submission).
+- **Assert**: verify the expected outcome with `expect` calls.
+
+Mark each section with a `// Arrange`, `// Act`, or `// Assert` comment. Omit a section only
+when the test genuinely has nothing to put there (e.g. a pure page-load check has no separate
+Arrange step).
+
 # Commit Messages
 
 Use [Conventional Commits](https://www.conventionalcommits.org/): `<type>(<optional scope>): <description>`
