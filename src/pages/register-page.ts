@@ -1,11 +1,11 @@
 import type { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base-page";
+import { Routes } from "../data/constants/routes";
 
 /**
  * Page Object for the registration page (`/register.html`).
  */
 export class RegisterPage extends BasePage {
-  private static readonly URL = "/register.html";
   readonly container: Locator;
   readonly form: Locator;
   readonly subtitle: Locator;
@@ -17,7 +17,7 @@ export class RegisterPage extends BasePage {
   readonly successBanner: Locator;
 
   constructor(page: Page) {
-    super(page, RegisterPage.URL);
+    super(page, Routes.register);
     this.container = page.getByTestId("register-container");
     this.form = page.getByTestId("register-form");
     this.subtitle = page.getByTestId("register-subtitle");
