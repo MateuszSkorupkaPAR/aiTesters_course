@@ -1,26 +1,15 @@
-# Coding Standards
+# Agent instructions
 
-Follow [CODING_STANDARDS.md](/CODING_STANDARDS.md) when adding or changing Page Objects.
+Read and follow [CODING_STANDARDS.md](../CODING_STANDARDS.md) before adding or changing
+Page Objects, tests, or helpers. That file owns locator choice, Page Object boundaries,
+and Arrange–Act–Assert. Do not copy those rules into this file.
 
 # Testing Framework
 
 This project uses the [Playwright Test](https://playwright.dev/docs/intro) framework for
-end-to-end tests. Review [playwright.config.ts](/playwright.config.ts) before creating or
+end-to-end tests. Review [playwright.config.ts](../playwright.config.ts) before creating or
 modifying tests to stay consistent with the configured `testDir`, timeout, reporter,
 `use` options (e.g. `baseURL`, `trace`), and `projects`.
-
-# Test Structure
-
-Structure every test body using the Arrange-Act-Assert pattern:
-
-- **Arrange**: set up test data and preconditions (e.g. fixtures, variables, `test.setTimeout`,
-  navigation needed only to reach the starting state).
-- **Act**: perform the single action under test (e.g. `page.goto`, a click, a form submission).
-- **Assert**: verify the expected outcome with `expect` calls.
-
-Mark each section with a `// Arrange`, `// Act`, or `// Assert` comment. Omit a section only
-when the test genuinely has nothing to put there (e.g. a pure page-load check has no separate
-Arrange step).
 
 # Commit Messages
 
@@ -44,12 +33,12 @@ chore: update VSCode settings
 # Test Tags
 
 Every Playwright test must declare at least one tag from the Tag Legend in
-[TEST_PLAN.md](/TEST_PLAN.md), passed via the test's `tag` option, e.g.
+[TEST_PLAN.md](../TEST_PLAN.md), passed via the test's `tag` option, e.g.
 `test('...', { tag: ['@smoke', '@auth'] }, async ({ page }) => { ... })`.
 
 - Reuse existing tags from the Tag Legend whenever a scenario fits one.
 - If a test needs a tag that doesn't exist yet, add it to the Tag Legend table in
-  [TEST_PLAN.md](/TEST_PLAN.md) in the same change, with a short description.
-- When adding/renaming/removing tags or key scenarios, keep [TEST_PLAN.md](/TEST_PLAN.md)
+  [TEST_PLAN.md](../TEST_PLAN.md) in the same change, with a short description.
+- When adding/renaming/removing tags or key scenarios, keep [TEST_PLAN.md](../TEST_PLAN.md)
   (Tag Legend and Key Scenarios sections) in sync with the actual tests under
-  [tests/](/tests).
+  [tests/](../tests).

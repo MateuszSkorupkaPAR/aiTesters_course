@@ -3,6 +3,10 @@
 Playwright tests live in [tests/](tests). Page Objects live in [src/pages/](src/pages).
 [RegisterPage](src/pages/register-page.ts) is the reference implementation.
 
+This file is the source of truth for how tests and Page Objects are written.
+Agent workflow (Playwright config, commits, and test tags) lives in
+[.github/agents.md](.github/agents.md).
+
 ## Page Objects
 
 A Page Object models one page. It exposes locators and user actions. It does not decide
@@ -45,11 +49,13 @@ await expect(registerPage.successBanner).toBeVisible();
 
 ## Tests
 
-Follow Arrange–Act–Assert (see [.github/agents.md](.github/agents.md)).
+Structure every test body with Arrange–Act–Assert. Mark each section with a `// Arrange`,
+`// Act`, or `// Assert` comment. Omit a section only when the test genuinely has nothing
+to put there (for example, a pure page-load check has no separate Arrange step).
 
 1. **Arrange**: create the Page Object and reach the starting state (`new RegisterPage(page)`,
-   `goto()`).
-2. **Act**: call Page Object actions. Do not reach into raw selectors when the page already
-   exposes that locator or action.
+   `goto()`). Fixtures, variables, and `test.setTimeout` also belong here.
+2. **Act**: call Page Object actions for the single behavior under test. Do not reach into
+   raw selectors when the page already exposes that locator or action.
 3. **Assert**: call `expect` on the Page Object's public locators, or on `page` for URL and
    title. All verifications stay in the test file.
