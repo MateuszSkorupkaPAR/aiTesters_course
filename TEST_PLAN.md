@@ -88,7 +88,35 @@ Admin/superadmin test accounts are not documented — confirm separately.
 Playwright ([playwright.config.ts](/playwright.config.ts), `baseURL: http://localhost:3000`)
 for UI/API tests; Swagger UI (`/swagger.html`) for manual API exploration.
 
+## Implemented Tests
+
+Source: [tests/smoke-tests.spec.ts](/tests/smoke-tests.spec.ts)
+
+| Test                                                       | Tags            |
+|-------------------------------------------------------------|-----------------|
+| Home page has title                                        | `@smoke`        |
+| Home page login link navigates to login page                | `@smoke @auth`  |
+| Login page loads and displays the login form                | `@smoke @auth`  |
+| Login page loads and displays the login subtitle             | `@smoke @auth`  |
+| Register page loads and displays the registration form       | `@smoke @auth`  |
+| Register page loads and displays the registration subtitle   | `@smoke @auth`  |
+| Registration registers a new user successfully                | `@smoke @auth`  |
+| Documentation page loads and displays the documentation content | `@smoke`     |
+| Swagger page loads and displays the API documentation frame  | `@smoke`        |
+
+These cover the page-load/rendering checks and the happy-path registration flow from Key
+Scenario 1 (registration step only — login after registration, farm setup, marketplace,
+finance, RBAC, and feature-flag scenarios below are not yet automated).
+
 ## Next Steps
 
-No tests implemented yet. Convert scenarios above into Playwright specs under
-[tests/](/tests).
+Remaining scenarios to convert into Playwright specs under [tests/](/tests):
+
+- Log in with an existing account and set up a farm (field, animals, staff, assignments) —
+  completes Key Scenario 1.
+- Key Scenario 2: sell a field between two users (ownership/balance update, offer `sold`).
+- Key Scenario 3: attempt to sell an assigned/in-use asset (offer `unavailable`).
+- Key Scenario 4: attempt to buy with insufficient funds (blocked with error).
+- Key Scenario 5: farmer tries to access admin-only data/pages (denied).
+- Key Scenario 6: feature-flagged modules behave correctly on/off (Alerts, Contact Form,
+  Interactive Map, Survival game).
