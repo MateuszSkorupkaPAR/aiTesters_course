@@ -1,3 +1,7 @@
+# Coding Standards
+
+Follow [CODING_STANDARDS.md](/CODING_STANDARDS.md) when adding or changing Page Objects.
+
 # Testing Framework
 
 This project uses the [Playwright Test](https://playwright.dev/docs/intro) framework for
