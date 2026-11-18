@@ -1,10 +1,17 @@
 import { expect, test } from "@playwright/test";
 import { uniqueEmail } from "../src/helpers/unique-email";
+import { DocsPage } from "../src/pages/docs-page";
+import { HomePage } from "../src/pages/home-page";
+import { LoginPage } from "../src/pages/login-page";
 import { RegisterPage } from "../src/pages/register-page";
+import { SwaggerPage } from "../src/pages/swagger-page";
 
 test("has title", { tag: ["@smoke"] }, async ({ page }) => {
+  // Arrange
+  const homePage = new HomePage(page);
+
   // Act
-  await page.goto("/");
+  await homePage.goto();
 
   // Assert
   // Expect a title "to contain" a substring.
@@ -13,11 +20,12 @@ test("has title", { tag: ["@smoke"] }, async ({ page }) => {
 
 test("login link", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
   // Arrange
-  await page.goto("/");
+  const homePage = new HomePage(page);
+  await homePage.goto();
 
   // Act
   // Click the login link.
-  await page.getByRole("link", { name: "Login" }).click();
+  await homePage.clickLoginLink();
 
   // Assert
   // Expects page to navigate to the login page.
@@ -30,20 +38,23 @@ test.describe("Login page", () => {
     "loads and displays the login form",
     { tag: ["@smoke", "@auth"] },
     async ({ page }) => {
+      // Arrange
+      const loginPage = new LoginPage(page);
+
       // Act
-      await page.goto("/login.html");
+      await loginPage.goto();
 
       // Assert
       // Page loaded with correct title.
       await expect(page).toHaveTitle(/Login - Rolnopol/);
 
       // Core elements are visible.
-      await expect(page.getByTestId("login-container")).toBeVisible();
-      await expect(page.getByTestId("login-form")).toBeVisible();
-      await expect(page.getByTestId("email-input")).toBeVisible();
-      await expect(page.getByTestId("password-input")).toBeVisible();
-      await expect(page.getByTestId("login-submit-btn")).toBeVisible();
-      await expect(page.getByTestId("register-link")).toBeVisible();
+      await expect(loginPage.container).toBeVisible();
+      await expect(loginPage.form).toBeVisible();
+      await expect(loginPage.emailInput).toBeVisible();
+      await expect(loginPage.passwordInput).toBeVisible();
+      await expect(loginPage.submitButton).toBeVisible();
+      await expect(loginPage.registerLink).toBeVisible();
     },
   );
 });
@@ -55,19 +66,18 @@ test.describe("Login page subtitle", () => {
     async ({ page }) => {
       // Arrange
       const expectedSubtitle = "User Login & Account Access";
+      const loginPage = new LoginPage(page);
 
       // Act
-      await page.goto("/login.html");
+      await loginPage.goto();
 
       // Assert
       // Page loaded with correct title.
       await expect(page).toHaveTitle(/Login - Rolnopol/);
 
       // Subtitle element is visible with the expected text.
-      await expect(page.getByTestId("login-subtitle")).toBeVisible();
-      await expect(page.getByTestId("login-subtitle")).toHaveText(
-        expectedSubtitle,
-      );
+      await expect(loginPage.subtitle).toBeVisible();
+      await expect(loginPage.subtitle).toHaveText(expectedSubtitle);
     },
   );
 });
@@ -158,19 +168,22 @@ test.describe("Documentation page", () => {
     "loads and displays the documentation content",
     { tag: ["@smoke"] },
     async ({ page }) => {
+      // Arrange
+      const docsPage = new DocsPage(page);
+
       // Act
-      await page.goto("/docs.html");
+      await docsPage.goto();
 
       // Assert
       // Page loaded with correct title.
       await expect(page).toHaveTitle(/Documentation - Rolnopol/);
 
       // Core elements are visible.
-      await expect(page.getByTestId("docs-container")).toBeVisible();
-      await expect(page.getByTestId("docs-header")).toBeVisible();
-      await expect(page.getByTestId("docs-sidebar")).toBeVisible();
-      await expect(page.getByTestId("docs-nav")).toBeVisible();
-      await expect(page.getByTestId("docs-content")).toBeVisible();
+      await expect(docsPage.container).toBeVisible();
+      await expect(docsPage.header).toBeVisible();
+      await expect(docsPage.sidebar).toBeVisible();
+      await expect(docsPage.nav).toBeVisible();
+      await expect(docsPage.content).toBeVisible();
     },
   );
 });
@@ -180,16 +193,18 @@ test.describe("Swagger page", () => {
     "loads and displays the API documentation frame",
     { tag: ["@smoke"] },
     async ({ page }) => {
+      // Arrange
+      const swaggerPage = new SwaggerPage(page);
+
       // Act
-      await page.goto("/swagger.html");
+      await swaggerPage.goto();
 
       // Assert
       // Page loaded with correct title.
       await expect(page).toHaveTitle(/Rolnopol - Swagger/);
 
       // The embedded Swagger UI frame is visible.
-      // No data-testid is exposed for this page, so the frame id is used instead.
-      await expect(page.locator("#swagger-frame")).toBeVisible();
+      await expect(swaggerPage.frame).toBeVisible();
     },
   );
 });

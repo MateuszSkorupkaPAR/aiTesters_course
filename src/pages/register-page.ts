@@ -1,10 +1,11 @@
 import type { Locator, Page } from "@playwright/test";
+import { BasePage } from "./base-page";
 
 /**
  * Page Object for the registration page (`/register.html`).
  */
-export class RegisterPage {
-  readonly page: Page;
+export class RegisterPage extends BasePage {
+  private static readonly URL = "/register.html";
   readonly container: Locator;
   readonly form: Locator;
   readonly subtitle: Locator;
@@ -16,7 +17,7 @@ export class RegisterPage {
   readonly successBanner: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page, RegisterPage.URL);
     this.container = page.getByTestId("register-container");
     this.form = page.getByTestId("register-form");
     this.subtitle = page.getByTestId("register-subtitle");
@@ -27,10 +28,6 @@ export class RegisterPage {
     this.loginLink = page.getByTestId("login-link");
     // No data-testid is exposed for this toast, so its CSS classes are used instead.
     this.successBanner = page.locator(".notification.success");
-  }
-
-  async goto() {
-    await this.page.goto("/register.html");
   }
 
   async fillRegistrationForm(email: string, password: string, displayName?: string) {
