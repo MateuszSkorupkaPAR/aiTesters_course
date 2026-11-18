@@ -59,3 +59,20 @@ to put there (for example, a pure page-load check has no separate Arrange step).
    raw selectors when the page already exposes that locator or action.
 3. **Assert**: call `expect` on the Page Object's public locators, or on `page` for URL and
    title. All verifications stay in the test file.
+
+## Comments
+
+Comments should explain intent, context, or architecture — not restate what the next line
+already says.
+
+- Remove comments that only describe the code beneath them (for example `// Click the login
+  link.` above `clickLoginLink()`, or `// Page loaded with correct title.` above a
+  `toHaveTitle` assertion).
+- Keep the `// Arrange`, `// Act`, and `// Assert` section markers required above, even
+  though they don't explain "why" — they encode the required test structure.
+- Keep or add short comments that explain non-obvious reasoning: why a locator strategy was
+  chosen, why a timeout was extended, why test data must be unique, or what behavior an
+  assertion is really verifying.
+- Use a JSDoc block (`/** ... */`) above a class, function, or exported constant to describe
+  its purpose or role in the architecture (see [BasePage](src/pages/base-page.ts) and
+  [Routes](src/data/constants/routes.ts)).

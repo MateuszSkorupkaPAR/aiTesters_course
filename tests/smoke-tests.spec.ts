@@ -14,7 +14,6 @@ test("has title", { tag: ["@smoke"] }, async ({ page }) => {
   await homePage.goto();
 
   // Assert
-  // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Rolnopol/);
 });
 
@@ -24,11 +23,9 @@ test("login link", { tag: ["@smoke", "@auth"] }, async ({ page }) => {
   await homePage.goto();
 
   // Act
-  // Click the login link.
   await homePage.clickLoginLink();
 
   // Assert
-  // Expects page to navigate to the login page.
   await expect(page).toHaveURL(/login\.html/);
   await expect(page).toHaveTitle(/Login - Rolnopol/);
 });
@@ -45,10 +42,8 @@ test.describe("Login page", () => {
       await loginPage.goto();
 
       // Assert
-      // Page loaded with correct title.
       await expect(page).toHaveTitle(/Login - Rolnopol/);
 
-      // Core elements are visible.
       await expect(loginPage.container).toBeVisible();
       await expect(loginPage.form).toBeVisible();
       await expect(loginPage.emailInput).toBeVisible();
@@ -72,10 +67,8 @@ test.describe("Login page subtitle", () => {
       await loginPage.goto();
 
       // Assert
-      // Page loaded with correct title.
       await expect(page).toHaveTitle(/Login - Rolnopol/);
 
-      // Subtitle element is visible with the expected text.
       await expect(loginPage.subtitle).toBeVisible();
       await expect(loginPage.subtitle).toHaveText(expectedSubtitle);
     },
@@ -94,10 +87,8 @@ test.describe("Register page", () => {
       await registerPage.goto();
 
       // Assert
-      // Page loaded with correct title.
       await expect(page).toHaveTitle(/Register - Rolnopol/);
 
-      // Core elements are visible.
       await expect(registerPage.container).toBeVisible();
       await expect(registerPage.form).toBeVisible();
       await expect(registerPage.emailInput).toBeVisible();
@@ -122,10 +113,8 @@ test.describe("Register page subtitle", () => {
       await registerPage.goto();
 
       // Assert
-      // Page loaded with correct title.
       await expect(page).toHaveTitle(/Register - Rolnopol/);
 
-      // Subtitle element is visible with the expected text.
       await expect(registerPage.subtitle).toBeVisible();
       await expect(registerPage.subtitle).toHaveText(expectedSubtitle);
     },
@@ -175,10 +164,8 @@ test.describe("Documentation page", () => {
       await docsPage.goto();
 
       // Assert
-      // Page loaded with correct title.
       await expect(page).toHaveTitle(/Documentation - Rolnopol/);
 
-      // Core elements are visible.
       await expect(docsPage.container).toBeVisible();
       await expect(docsPage.header).toBeVisible();
       await expect(docsPage.sidebar).toBeVisible();
@@ -200,10 +187,8 @@ test.describe("Swagger page", () => {
       await swaggerPage.goto();
 
       // Assert
-      // Page loaded with correct title.
       await expect(page).toHaveTitle(/Rolnopol - Swagger/);
 
-      // The embedded Swagger UI frame is visible.
       await expect(swaggerPage.frame).toBeVisible();
     },
   );
