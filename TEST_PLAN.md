@@ -101,12 +101,17 @@ Source: [tests/smoke-tests.spec.ts](/tests/smoke-tests.spec.ts)
 | Register page loads and displays the registration form       | `@smoke @auth`  |
 | Register page loads and displays the registration subtitle   | `@smoke @auth`  |
 | Registration registers a new user successfully                | `@smoke @auth`  |
+| Registration negative scenarios rejects an invalid email address | `@auth`      |
+| Registration negative scenarios rejects a display name shorter than the minimum length | `@auth` |
+| Registration negative scenarios rejects a password shorter than the minimum length | `@auth` |
 | Documentation page loads and displays the documentation content | `@smoke`     |
 | Swagger page loads and displays the API documentation frame  | `@smoke`        |
 
-These cover the page-load/rendering checks and the happy-path registration flow from Key
-Scenario 1 (registration step only — login after registration, farm setup, marketplace,
-finance, RBAC, and feature-flag scenarios below are not yet automated).
+These cover the page-load/rendering checks, the happy-path registration flow from Key
+Scenario 1 (registration step only), and the registration form's negative validation
+scenarios (invalid email, display name/password below the minimum length) — login after
+registration, farm setup, marketplace, finance, RBAC, and feature-flag scenarios below are
+not yet automated.
 
 ## Next Steps
 
