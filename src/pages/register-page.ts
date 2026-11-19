@@ -33,7 +33,9 @@ export class RegisterPage extends BasePage {
     this.successBanner = page.locator(".notification.success");
     // Field validation messages have no data-testid; each renders as the
     // ".form__error" element immediately following its input.
-    this.emailError = page.locator('[data-testid="email-input"] + .form__error');
+    this.emailError = page.locator(
+      '[data-testid="email-input"] + .form__error',
+    );
     this.displayNameError = page.locator(
       '[data-testid="display-name-input"] + .form__error',
     );
