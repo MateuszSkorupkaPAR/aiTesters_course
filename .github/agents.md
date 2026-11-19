@@ -1,7 +1,13 @@
+# Agent instructions
+
+Read and follow [CODING_STANDARDS.md](../CODING_STANDARDS.md) before adding or changing
+Page Objects, tests, or helpers. That file owns locator choice, Page Object boundaries,
+and Arrange–Act–Assert. Do not copy those rules into this file.
+
 # Testing Framework
 
 This project uses the [Playwright Test](https://playwright.dev/docs/intro) framework for
-end-to-end tests. Review [playwright.config.ts](/playwright.config.ts) before creating or
+end-to-end tests. Review [playwright.config.ts](../playwright.config.ts) before creating or
 modifying tests to stay consistent with the configured `testDir`, timeout, reporter,
 `use` options (e.g. `baseURL`, `trace`), and `projects`.
 
@@ -27,12 +33,12 @@ chore: update VSCode settings
 # Test Tags
 
 Every Playwright test must declare at least one tag from the Tag Legend in
-[TEST_PLAN.md](/TEST_PLAN.md), passed via the test's `tag` option, e.g.
+[TEST_PLAN.md](../TEST_PLAN.md), passed via the test's `tag` option, e.g.
 `test('...', { tag: ['@smoke', '@auth'] }, async ({ page }) => { ... })`.
 
 - Reuse existing tags from the Tag Legend whenever a scenario fits one.
 - If a test needs a tag that doesn't exist yet, add it to the Tag Legend table in
-  [TEST_PLAN.md](/TEST_PLAN.md) in the same change, with a short description.
-- When adding/renaming/removing tags or key scenarios, keep [TEST_PLAN.md](/TEST_PLAN.md)
+  [TEST_PLAN.md](../TEST_PLAN.md) in the same change, with a short description.
+- When adding/renaming/removing tags or key scenarios, keep [TEST_PLAN.md](../TEST_PLAN.md)
   (Tag Legend and Key Scenarios sections) in sync with the actual tests under
-  [tests/](/tests).
+  [tests/](../tests).
