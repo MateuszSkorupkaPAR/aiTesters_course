@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
-import { BasePage } from "./base-page";
 import { Routes } from "../data/constants/routes";
+import { BasePage } from "./base-page";
 
 /**
  * Page Object for the registration page (`/register.html`).
@@ -30,7 +30,11 @@ export class RegisterPage extends BasePage {
     this.successBanner = page.locator(".notification.success");
   }
 
-  async fillRegistrationForm(email: string, password: string, displayName?: string) {
+  async fillRegistrationForm(
+    email: string,
+    password: string,
+    displayName?: string,
+  ) {
     await this.emailInput.fill(email);
     if (displayName !== undefined) {
       await this.displayNameInput.fill(displayName);
