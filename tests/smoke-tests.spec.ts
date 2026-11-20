@@ -152,6 +152,79 @@ test.describe("Registration", () => {
   );
 });
 
+test.describe("Registration negative scenarios", () => {
+  test(
+    "rejects an invalid email address",
+    { tag: ["@auth"] },
+    async ({ page }) => {
+      // Arrange
+      const registerPage = new RegisterPage(page);
+      await registerPage.goto();
+
+      // Act
+      await registerPage.register("not-an-email", "TestPass123", "Copilot Tester");
+
+      // Assert
+      await expect(registerPage.emailError).toBeVisible();
+      await expect(registerPage.emailError).toHaveText(
+        "Please enter a valid email address",
+      );
+
+      // The form must not submit while the email is invalid.
+      await expect(registerPage.successBanner).not.toBeVisible();
+      await expect(page).toHaveURL(/register\.html/);
+    },
+  );
+
+  test(
+    "rejects a display name shorter than the minimum length",
+    { tag: ["@auth"] },
+    async ({ page }) => {
+      // Arrange
+      const email = uniqueEmail();
+      const registerPage = new RegisterPage(page);
+      await registerPage.goto();
+
+      // Act
+      // The display name field requires a minimum of 3 characters.
+      await registerPage.register(email, "TestPass123", "Jo");
+
+      // Assert
+      await expect(registerPage.displayNameError).toBeVisible();
+      await expect(registerPage.displayNameError).toHaveText(
+        "Display name must be at least 3 characters",
+      );
+
+      await expect(registerPage.successBanner).not.toBeVisible();
+      await expect(page).toHaveURL(/register\.html/);
+    },
+  );
+
+  test(
+    "rejects a password shorter than the minimum length",
+    { tag: ["@auth"] },
+    async ({ page }) => {
+      // Arrange
+      const email = uniqueEmail();
+      const registerPage = new RegisterPage(page);
+      await registerPage.goto();
+
+      // Act
+      // The password field requires a minimum of 3 characters.
+      await registerPage.register(email, "ab", "Copilot Tester");
+
+      // Assert
+      await expect(registerPage.passwordError).toBeVisible();
+      await expect(registerPage.passwordError).toHaveText(
+        "Password must be at least 3 characters",
+      );
+
+      await expect(registerPage.successBanner).not.toBeVisible();
+      await expect(page).toHaveURL(/register\.html/);
+    },
+  );
+});
+
 test.describe("Documentation page", () => {
   test(
     "loads and displays the documentation content",

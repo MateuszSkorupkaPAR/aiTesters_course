@@ -15,6 +15,9 @@ export class RegisterPage extends BasePage {
   readonly submitButton: Locator;
   readonly loginLink: Locator;
   readonly successBanner: Locator;
+  readonly emailError: Locator;
+  readonly displayNameError: Locator;
+  readonly passwordError: Locator;
 
   constructor(page: Page) {
     super(page, Routes.register);
@@ -28,6 +31,17 @@ export class RegisterPage extends BasePage {
     this.loginLink = page.getByTestId("login-link");
     // No data-testid is exposed for this toast, so its CSS classes are used instead.
     this.successBanner = page.locator(".notification.success");
+    // Field validation messages have no data-testid; each renders as the
+    // ".form__error" element immediately following its input.
+    this.emailError = page.locator(
+      '[data-testid="email-input"] + .form__error',
+    );
+    this.displayNameError = page.locator(
+      '[data-testid="display-name-input"] + .form__error',
+    );
+    this.passwordError = page.locator(
+      '[data-testid="password-input"] + .form__error',
+    );
   }
 
   async fillRegistrationForm(email: string, password: string, displayName?: string) {
