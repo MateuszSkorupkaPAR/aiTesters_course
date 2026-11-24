@@ -13,7 +13,7 @@ jobs:
       rolnopol:
         image: jaktestowac/rolnopol:latest
         ports:
-          - 3000:300
+          - 3000:3000
 
     steps:
       - name: Checkout
