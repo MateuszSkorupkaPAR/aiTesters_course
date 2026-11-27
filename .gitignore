@@ -8,4 +8,5 @@ node_modules/
 /playwright/.auth/
 /.playwright-mcp/
 /playwright-report-ci/
+.playwright-mcp/
 
